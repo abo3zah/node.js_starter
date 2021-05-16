@@ -1,14 +1,16 @@
-const http = require('http');
+const express = require('express');
+const { readFile } = require('fs');
 
-const hostname = '127.0.0.1';
-const port = 3000;
+const app = express();
 
-const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello World');
-});
+app.get('/' , async (req , res)=>{
+    
+    await readFile('./main.html','utf8',(err, html)=>{
+        if (err){
+            res.status(500).send('Sorry, Out of Order');
+        }
+        res.send(html);  
+    })
+})
 
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
-});
+app.listen(process.env.PORT || 3000, () => console.log('App available'))
