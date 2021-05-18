@@ -13,4 +13,4 @@ app.get('/' , (req , res)=>{
     })
 })
 
-app.listen(process.env.PORT || 3000, () => console.log('App available'))
+app.listen(3000, () => console.log(process.env.USERNAME))
